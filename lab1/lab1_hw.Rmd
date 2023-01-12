@@ -1,7 +1,7 @@
 ---
 title: "Lab 1 Homework"
-author: Gautam Ponugubati
-date: 2023-01-12
+author: "Gautam Ponugubati"
+date: "`r Sys.Date()`"
 output:
   html_document: 
     theme: spacelab
