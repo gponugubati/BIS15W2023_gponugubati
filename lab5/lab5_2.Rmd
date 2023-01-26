@@ -113,7 +113,6 @@ bad_guys %>%
 superhero_gotidy %>% 
   filter(alignment == "good"| (alignment == "bad" && hair_color == "No Hair"))# %>% 
   
-  
 ```
 
 10. Let's explore who the really "big" superheros are. In the `superhero_info` data, which have a height over 200 or weight greater than or equal to 450?
