@@ -89,9 +89,11 @@ ducks %>%
 Problem 8. (4 points) In ducks, how is mean body mass associated with migratory strategy? Do the ducks that migrate long distances have high or low average body mass?
 ```{r}
 ducks %>% 
-  filter(migratory_strategy == "Long")
-  #select(log10_mass, migratory_strategy) %>% 
- # filter(migratory_strategy == "Long")
+  group_by(migratory_strategy) %>% 
+  summarize(mean_log10_mass = mean(log10_mass))
+
+#Ducks that migrate long distances have low average body mass (2.87)
+ 
 ```
 
 Problem 9. (2 points) Accipitridae is the family that includes eagles, hawks, kites, and osprey. First, make a new object `eagles` that only includes species in the family Accipitridae. Next, restrict these data to only include the variables common_name, scientific_name, and population_size.
@@ -106,24 +108,32 @@ Problem 10. (4 points) In the eagles data, any species with a population size le
 ```{r}
 eagles %>% 
   mutate(conservation_status = population_size < 250000)
+
+#False = the species is not threatened. True = the species is threatened.
 ```
 
 Problem 11. (2 points) Consider the results from questions 9 and 10. Are there any species for which their threatened status needs further study? How do you know?
 ```{r}
+eagles %>% 
+  filter(is.na(population_size))
 
+#Yes. There are species that don't have their population sizes recorded, which makes it difficult to determine their threatened status and needs further study.
 ```
 
 Problem 12. (4 points) Use the `ecosphere` data to perform one exploratory analysis of your choice. The analysis must have a minimum of three lines and two functions. You must also clearly state the question you are attempting to answer.
 
-Question: What is the standard deviation of the population size of the family Columbiformes? 
+Question: What is the standard deviation of the population size of the family Columbidae? 
 ```{r}
 ecosphere %>% 
-  filter(order == "Columbiformes")
+  filter(family == "Columbidae") %>%
+  summarize(columbidae_population_sd = sd(population_size, na.rm = T))
+  
 ```
 
 Please provide the names of the students you have worked with with during the exam:
 ```{r}
-
+#Kyle De Mariano
+#Akshanth Srivatsa
 ```
 
 Please be 100% sure your exam is saved, knitted, and pushed to your github repository. No need to submit a link on canvas, we will find your exam in your repository.

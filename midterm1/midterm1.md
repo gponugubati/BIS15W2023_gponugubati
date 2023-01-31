@@ -261,26 +261,23 @@ Problem 8. (4 points) In ducks, how is mean body mass associated with migratory 
 
 ```r
 ducks %>% 
-  filter(migratory_strategy == "Long")
+  group_by(migratory_strategy) %>% 
+  summarize(mean_log10_mass = mean(log10_mass))
 ```
 
 ```
-## # A tibble: 2 × 19
-##   common…¹ scien…² diet  life_…³ habitat urban…⁴ migra…⁵ log10…⁶ mean_…⁷ mean_…⁸
-##   <chr>    <chr>   <chr> <chr>   <chr>   <chr>   <chr>     <dbl>   <dbl>   <dbl>
-## 1 Eurasia… Anas p… Vege… Long    Wetland No      Long       2.89     8.5       1
-## 2 Tufted … Aythya… Vege… Middle  Wetland Yes     Long       2.85    10         1
-## # … with 9 more variables: population_size <dbl>, winter_range_area <dbl>,
-## #   range_in_cbc <dbl>, strata <dbl>, circles <dbl>, feeder_bird <chr>,
-## #   median_trend <dbl>, lower_95_percent_ci <dbl>, upper_95_percent_ci <dbl>,
-## #   and abbreviated variable names ¹​common_name, ²​scientific_name,
-## #   ³​life_expectancy, ⁴​urban_affiliate, ⁵​migratory_strategy, ⁶​log10_mass,
-## #   ⁷​mean_eggs_per_clutch, ⁸​mean_age_at_sexual_maturity
+## # A tibble: 5 × 2
+##   migratory_strategy mean_log10_mass
+##   <chr>                        <dbl>
+## 1 Long                          2.87
+## 2 Moderate                      3.11
+## 3 Resident                      4.03
+## 4 Short                         2.98
+## 5 Withdrawal                    2.92
 ```
 
 ```r
-  #select(log10_mass, migratory_strategy) %>% 
- # filter(migratory_strategy == "Long")
+#Ducks that migrate long distances have low average body mass (2.87)
 ```
 
 Problem 9. (2 points) Accipitridae is the family that includes eagles, hawks, kites, and osprey. First, make a new object `eagles` that only includes species in the family Accipitridae. Next, restrict these data to only include the variables common_name, scientific_name, and population_size.
@@ -352,43 +349,57 @@ eagles %>%
 ## # … with abbreviated variable name ¹​conservation_status
 ```
 
+```r
+#False = the species is not threatened. True = the species is threatened.
+```
+
 Problem 11. (2 points) Consider the results from questions 9 and 10. Are there any species for which their threatened status needs further study? How do you know?
 
+```r
+eagles %>% 
+  filter(is.na(population_size))
+```
+
+```
+## # A tibble: 8 × 3
+##   common_name       scientific_name          population_size
+##   <chr>             <chr>                              <dbl>
+## 1 Bald Eagle        Haliaeetus leucocephalus              NA
+## 2 Gray Hawk         Buteo nitidus                         NA
+## 3 Hook-billed Kite  Chondrohierax uncinatus               NA
+## 4 Short-tailed Hawk Buteo brachyurus                      NA
+## 5 Snail Kite        Rostrhamus sociabilis                 NA
+## 6 White-tailed Hawk Buteo albicaudatus                    NA
+## 7 White-tailed Kite Elanus leucurus                       NA
+## 8 Zone-tailed Hawk  Buteo albonotatus                     NA
+```
+
+```r
+#Yes. There are species that don't have their population sizes recorded, which makes it difficult to determine their threatened status and needs further study.
+```
 
 Problem 12. (4 points) Use the `ecosphere` data to perform one exploratory analysis of your choice. The analysis must have a minimum of three lines and two functions. You must also clearly state the question you are attempting to answer.
 
-Question: What is the standard deviation of the population size of the family Columbiformes? 
+Question: What is the standard deviation of the population size of the family Columbidae? 
 
 ```r
 ecosphere %>% 
-  filter(order == "Columbiformes")
+  filter(family == "Columbidae") %>%
+  summarize(columbidae_population_sd = sd(population_size, na.rm = T))
 ```
 
 ```
-## # A tibble: 11 × 21
-##    order    family commo…¹ scien…² diet  life_…³ habitat urban…⁴ migra…⁵ log10…⁶
-##    <chr>    <chr>  <chr>   <chr>   <chr> <chr>   <chr>   <chr>   <chr>     <dbl>
-##  1 Columbi… Colum… Band-t… Patagi… Seed  Middle  Woodla… Yes     Withdr…    2.55
-##  2 Columbi… Colum… Common… Columb… Seed  Short   Shrubl… No      Reside…    1.55
-##  3 Columbi… Colum… Eurasi… Strept… Seed  Middle  <NA>    Yes     Reside…    2.17
-##  4 Columbi… Colum… Inca D… Columb… Seed  Short   Shrubl… Yes     Reside…    1.71
-##  5 Columbi… Colum… Mourni… Zenaid… Seed  Middle  Various Yes     Withdr…    2.08
-##  6 Columbi… Colum… Red-bi… Patagi… Fruit Middle  Woodla… No      Reside…    2.4 
-##  7 Columbi… Colum… Ruddy … Columb… Seed  Short   <NA>    Yes     Reside…    1.66
-##  8 Columbi… Colum… Spotte… Strept… Seed  Short   <NA>    Yes     Reside…    2.22
-##  9 Columbi… Colum… White-… Patagi… Seed  Middle  Woodla… No      Reside…    2.38
-## 10 Columbi… Colum… White-… Leptot… Seed  Short   Woodla… No      Reside…    2.17
-## 11 Columbi… Colum… White-… Zenaid… Seed  Middle  Various Yes     Withdr…    2.19
-## # … with 11 more variables: mean_eggs_per_clutch <dbl>,
-## #   mean_age_at_sexual_maturity <dbl>, population_size <dbl>,
-## #   winter_range_area <dbl>, range_in_cbc <dbl>, strata <dbl>, circles <dbl>,
-## #   feeder_bird <chr>, median_trend <dbl>, lower_95_percent_ci <dbl>,
-## #   upper_95_percent_ci <dbl>, and abbreviated variable names ¹​common_name,
-## #   ²​scientific_name, ³​life_expectancy, ⁴​urban_affiliate, ⁵​migratory_strategy,
-## #   ⁶​log10_mass
+## # A tibble: 1 × 1
+##   columbidae_population_sd
+##                      <dbl>
+## 1                43866392.
 ```
 
 Please provide the names of the students you have worked with with during the exam:
 
+```r
+#Kyle De Mariano
+#Akshanth Srivatsa
+```
 
 Please be 100% sure your exam is saved, knitted, and pushed to your github repository. No need to submit a link on canvas, we will find your exam in your repository.
