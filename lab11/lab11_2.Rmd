@@ -106,7 +106,7 @@ Access the help for `RColorBrewer`.
 
 The thing to notice is that there are three different palettes: 1) sequential, 2) diverging, and 3) qualitative. Within each of these there are several selections. You can bring up the colors by using `display.brewer.pal()`. Specify the number of colors that you want and the palette name.
 ```{r}
-display.brewer.pal(4,"GnBu")
+display.brewer.pal(5,"GnBu")
 ```
 
 The [R Color Brewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) website is very helpful for getting an idea of the color palettes. To make things easy, use these two guidelines:
@@ -154,7 +154,7 @@ p+scale_fill_manual(values=my_palette)+
 ## Adjusting the x and y limits
 There are many options for adjusting the x and y axes. For details, look over examples in the [R Cookbook](http://www.cookbook-r.com/). To adjust limits, we can use the `xlim` and `ylim` commands. When you do this, any data outside the specified ranges are not plotted.
 ```{r}
-homerange %>% 
+homerange %>% #limits X and Y values
   ggplot(aes(x = log10.mass, y = log10.hra, color = locomotion)) +
   geom_point() +
   xlim(0, 4) +
@@ -164,12 +164,20 @@ homerange %>%
 ## Practice
 1. Revisit the relationship between mass and homerange using a scatterplot, but color the points by taxonomic class using a custom color theme.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x = log10.mass, y = log10.hra, color = class)) +
+  geom_point()+
+  scale_color_brewer(palette = "YlOrRd")+
+  theme_linedraw()
 ```
 
 2. Build bar plots that show the representation by taxonomic class with carnivores and herbivores. Try using a color theme that matches your scatterplot to keep everything consistent.
 ```{r}
-
+homerange %>% 
+  ggplot(aes(x = trophic.guild, fill = class))+
+  geom_bar(position = "dodge")+
+  scale_fill_manual(values = my_palette)+
+  theme_linedraw()
 ```
 
 ## Faceting
@@ -267,7 +275,11 @@ ecosphere %>%
 ## Practice
 1. Build a faceted plot that shows a distribution of life expectancy by habitat type.
 ```{r}
-
+ecosphere %>% 
+  ggplot(aes(x = habitat, y = log10_mass, fill = habitat))+
+  geom_col(alpha=0.8)+ 
+  facet_wrap(.~habitat)+
+  labs(x = NULL)
 ```
 
 2. Try the same plot as #1 above, but include life_expectancy~habitat.
