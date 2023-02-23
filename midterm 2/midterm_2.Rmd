@@ -102,20 +102,62 @@ surgery %>%
   select(ahrq_ccs, ccsmort30rate) %>% 
   group_by(ahrq_ccs) %>% 
   summarize(mean_ccsmort30ate = mean(ccsmort30rate)) %>% 
-  arrange(desc(mean_ccsmort30ate))
+  arrange(desc(mean_ccsmort30ate)) %>% 
+  slice(1:5)
+
+#The 5 procedures with the highest 30 day mortality rate
+```
+```{r}
+surgery %>% 
+  select(ahrq_ccs, ccscomplicationrate) %>% 
+  group_by(ahrq_ccs) %>% 
+  summarize(mean_ccscomplicationrate = mean(ccscomplicationrate)) %>% 
+  arrange(desc(mean_ccscomplicationrate)) %>% 
+  slice(1:5)
+
+#The 5 procedures with the highest complication rate
 ```
 
 8. (3 points) Make a plot that compares the `ccsmort30rate` for all listed `ahrq_ccs` procedures.
 ```{r}
 surgery %>% 
-  ggplot(aes(x = ahrq_ccs, y = ccsmort30rate))+
-  geom_col()
+  ggplot(aes(x = ahrq_ccs, fill = ccsmort30rate))+
+  theme_linedraw()+
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))+
+  geom_bar()
 ```
 
 9. (4 points) When is the best month to have surgery? Make a chart that shows the 30-day mortality and complications for the patients by month. `mort30` is the variable that shows whether or not a patient survived 30 days post-operation.
+```{r}
+surgery %>% 
+  tabyl(month, mort30) #Best month to have surgery is August (3168 people did not die after 30 days and had some of the lowest number of deaths (9))
+  
+```
+```{r}
+surgery %>% 
+  tabyl(month, complication) #September (Most number of people with no complications)
+```
 
 10. (4 points) Make a plot that visualizes the chart from question #9. Make sure that the months are on the x-axis. Do a search online and figure out how to order the months Jan-Dec.
+```{r}
+surgery %>% 
+  ggplot(aes(x = month, fill = mort30))+
+  geom_bar()+
+  coord_flip()+
+  theme_linedraw()+
+  labs(x = "Number of people that died after 30 days", y = "Month", title = "30 Day Mortality rate by month")
+```
+```{r}
+surgery %>% 
+  ggplot(aes(x = month, fill = complication))+
+  geom_bar()+
+  coord_flip()+
+  theme_linedraw()+
+  labs(x = "Number of people that had complications after 30 days", y = "Month", title = "30 Day Complication rate by month")
+```
 
 Please provide the names of the students you have worked with with during the exam:
+
+Kyle De Mariano
 
 Please be 100% sure your exam is saved, knitted, and pushed to your github repository. No need to submit a link on canvas, we will find your exam in your repository.
