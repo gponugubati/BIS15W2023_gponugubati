@@ -16,36 +16,41 @@ If you want to return to the binder, find the [repository and instructions here]
 ## Instructions
 Answer the following questions in RMarkdown. Please embed all of your code and push your final work to your repository. Be sure to add your name to the author header above.
 
-
-
 ## Questions
 
 1. Look up 'Data Scientist' at https://www.bls.gov/. What degree is required for this career? Is it a growing occupation?  
 
+The degree required for this career is a Bacherlors in either Math, Statistics, Computer Science or a related field. It is a growing occupation (36% growth between 2021-2031)
 
 2. How would you describe your data science skills on a resume for a job application? Write a blurb that reflects the skills you have learned in this course. 
 
+I can take a large dataset and clean, sort and add meaningful data to it. I can produce a variety of tables and plots from any dataset as required. I can also build an app to make it easier to visualize data with many variables.
 
 3. What are your current career interests, and how could your R skills support that career path? (hint: this might be good content for your LinkedIn profile ;)
 
+I am interested in plant modification through CRISPR and making artificial meats. I think R is useful for analyzing genome data and is an essential skill to have in any biology field.
 
 4. What about this course has been the most difficult for you? What has been the most rewarding?
 
+I don't think there was anything difficult about this course, except maybe the group project, because I feel like it would have been easier for a group to all code on the same RMarkdown file. All the skills I have learned have been the most rewarding, and this class was the most essential out of all classes I have taken in Davis for my career.
 
 5. What do you wish you had known, or what skills do you wish you had, before taking this class.
 
+None, I thought the class was constructed well.
 
 6. If we had 1 more lab in this class, what would you have liked to learn more about?
 
+If we had another lab, I would have liked to spend more time on Shiny apps
 
 7. Now that you have (almost!) completed this course, do you plan to persue further data or computer science skills? What do you plan to do?
 
+Yes, I plan to use R in any research positions or internships I do in the future. 
 
 8. How important was working with a partner to your success in this class? If this class were transitioned to an online format, how do you think that would affect your understanding?
 
+I think having a partner wasn't that essential because the professor and the TA went around answering questions. I think an online format would be better because it's easier to see the code and reference it with RStudio on Zoom than it is to look at the code on the screen in class.
 
 9. Did you complete the class evaluation? Please complete the class evaluation using the link provided in the announcements. Your feedback is very important and we appreciate your time.
-
 
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences. 
